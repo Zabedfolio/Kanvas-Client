@@ -12,12 +12,8 @@ const getDatabaseInstance = () => {
         return new Database(targetPath);
     }
     
-    // Fallback: Create a local directory inside the client workspace so build/CI does not crash
-    const fallbackDir = path.resolve(process.cwd(), ".database");
-    if (!fs.existsSync(fallbackDir)) {
-        fs.mkdirSync(fallbackDir, { recursive: true });
-    }
-    return new Database(path.join(fallbackDir, "db.sqlite3"));
+    // Fallback: Use /tmp/db.sqlite3 since /tmp is writeable in Vercel serverless environments
+    return new Database("/tmp/db.sqlite3");
 };
 
 export const auth = betterAuth({

@@ -1,7 +1,10 @@
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+let baseUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").trim();
+if (baseUrl.endsWith("/")) {
+    baseUrl = baseUrl.slice(0, -1);
+}
 
 async function proxyHandler(req: NextRequest, context: any) {
     // 1. Resolve path params from context
@@ -24,7 +27,7 @@ async function proxyHandler(req: NextRequest, context: any) {
 
     // 3. Construct Django API endpoint URL
     const searchParams = req.nextUrl.searchParams.toString();
-    const url = `${API_BASE_URL}/api/${path}/${searchParams ? `?${searchParams}` : ""}`;
+    const url = `${baseUrl}/api/${path}/${searchParams ? `?${searchParams}` : ""}`;
 
     // 4. Set forwarding headers (cookies and session tokens)
     const headers = new Headers();

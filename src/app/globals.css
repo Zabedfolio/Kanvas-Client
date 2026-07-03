@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: hsl(240, 10%, 4%);
+  --bg-secondary: hsl(240, 6%, 8%);
+  --surface: hsl(240, 5%, 12%);
+  --surface-hover: hsl(240, 5%, 16%);
+  --border: hsl(240, 5%, 20%);
+  --border-focus: hsl(240, 5%, 35%);
+  --text-primary: hsl(0, 0%, 95%);
+  --text-secondary: hsl(240, 4%, 60%);
+  --accent: hsl(250, 89%, 65%);
+  --accent-hover: hsl(250, 89%, 70%);
+  
+  --priority-low: hsl(215, 16%, 45%);
+  --priority-medium: hsl(38, 92%, 50%);
+  --priority-high: hsl(343, 81%, 50%);
+  
+  --status-todo: hsl(240, 5%, 20%);
+  --status-in-progress: hsl(217, 91%, 60%);
+  --status-done: hsl(162, 76%, 41%);
+}
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-outfit), system-ui, sans-serif;
+  
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  
+  --color-priority-low: var(--priority-low);
+  --color-priority-medium: var(--priority-medium);
+  --color-priority-high: var(--priority-high);
+  
+  --color-status-todo: var(--status-todo);
+  --color-status-in-progress: var(--status-in-progress);
+  --color-status-done: var(--status-done);
+  
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  
+  --animate-modal-entry: modal-entry 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modal-entry {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes bg-float-a {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-18px) rotate(2deg); }
+  66%       { transform: translateY(8px) rotate(-1.5deg); }
+}
+@keyframes bg-float-b {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40%       { transform: translateY(14px) rotate(-3deg); }
+  80%       { transform: translateY(-10px) rotate(2deg); }
+}
+@keyframes bg-float-c {
+  0%, 100% { transform: translateX(0px) translateY(0px); }
+  50%       { transform: translateX(12px) translateY(-12px); }
+}
+@keyframes bg-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+@keyframes bg-draw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@utility animate-bg-float-a {
+  animation: bg-float-a var(--duration, 14s) ease-in-out infinite;
+}
+@utility animate-bg-float-b {
+  animation: bg-float-b var(--duration, 18s) ease-in-out infinite;
+}
+@utility animate-bg-float-c {
+  animation: bg-float-c var(--duration, 22s) ease-in-out infinite;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Web v4 Utility classes for vibrant glassmorphism */
+@utility glass-panel {
+  background-color: rgba(12, 12, 16, 0.6);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+@utility glass-panel-light {
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Color-matched glows (low/medium/high priorities and active indicators) */
+@utility glow-violet {
+  box-shadow: 0 0 25px 2px rgba(139, 92, 246, 0.25);
+}
+
+@utility glow-cyan {
+  box-shadow: 0 0 25px 2px rgba(6, 182, 212, 0.25);
+}
+
+@utility glow-rose {
+  box-shadow: 0 0 20px 2px rgba(244, 63, 94, 0.22);
+}
+
+@utility glow-amber {
+  box-shadow: 0 0 20px 2px rgba(245, 158, 11, 0.18);
+}
+
+@utility glow-slate {
+  box-shadow: 0 0 15px 1px rgba(148, 163, 184, 0.12);
+}
+
+/* Custom Scrollbar for modern creative tools appearance */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-focus);
+}

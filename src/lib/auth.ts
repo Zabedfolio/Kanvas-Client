@@ -1,10 +1,22 @@
 import { betterAuth } from "better-auth";
 import Database from "better-sqlite3";
+import { Pool } from "pg";
 import bcrypt from "bcryptjs";
 import fs from "fs";
 import path from "path";
 
-const getDatabaseInstance = () => {
+const getDatabaseConfig = () => {
+    const dbUrl = process.env.DATABASE_URL;
+    if (dbUrl) {
+        // Connect to PostgreSQL database in production
+        return new Pool({
+            connectionString: dbUrl,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
+    }
+
     const targetPath = path.resolve(process.cwd(), "../Kanvas-Server/db.sqlite3");
     const targetDir = path.dirname(targetPath);
     
@@ -17,7 +29,7 @@ const getDatabaseInstance = () => {
 };
 
 export const auth = betterAuth({
-    database: getDatabaseInstance(),
+    database: getDatabaseConfig(),
     emailAndPassword: {
         enabled: true,
         password: {
